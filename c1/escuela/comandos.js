@@ -35,10 +35,16 @@ async function mostrarEstudiantes() {
 }
 
 async function editarEstudiante(nombre, rut, curso, nivel) {
-  const resp = await client.query(`update estudiantes set nombre='${nombre}', rut='${rut}', curso='${curso}', nivel=${nivel} where rut='${rut}' returning *`);
+  const resp = await client.query(`update estudiantes set nombre='${nombre}', rut='${rut}', curso='${curso}', nivel=${nivel} where rut='${rut}' returning *`)
   console.log(resp.rows)
-  console.log(`Estudiante ${nombre} editado con éxito`);
-  client.end();
+  console.log(`Estudiante ${nombre} editado con éxito`)
+  client.end()
+}
+
+async function rutEstudiante(rut) {
+  const resp = await client.query(`select * from estudiantes where rut='${rut}'`)
+  console.log(resp.rows)
+  client.end()
 }
 
 // Acciones 
@@ -64,6 +70,10 @@ else if (accion == 'editar') {
   const nivel = process.argv[6]
   editarEstudiante(nombre, rut, curso, nivel)
 }
+else if (accion == 'rut') {
+  const rut = process.argv[3]
+  rutEstudiante(rut)
+}
 else {
   console.log(`Acción ${accion} no implementada`)
 }
@@ -77,4 +87,5 @@ else {
 // node comandos.js consulta
   // actualizar
 // node comandos.js editar 'Brian May' '12.345.678-9' guitarra 10
+// node comandos.js rut '12.345.678-9'
 
