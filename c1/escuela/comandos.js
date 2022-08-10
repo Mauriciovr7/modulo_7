@@ -47,6 +47,13 @@ async function rutEstudiante(rut) {
   client.end()
 }
 
+async function eliminarEstudiante(rut) {
+  const resp = await client.query(`delete from estudiantes where rut='${rut}' returning *`)
+  console.log(`Registro de estudiante  con rut ${rut} eliminado`)
+  console.log(resp.rows)
+  client.end()
+}
+
 // Acciones 
 //mostrarEstudiantes()
 const accion = process.argv[2]
@@ -74,6 +81,10 @@ else if (accion == 'rut') {
   const rut = process.argv[3]
   rutEstudiante(rut)
 }
+else if (accion == 'eliminar') {
+  const rut = process.argv[3]
+  eliminarEstudiante(rut)
+}
 else {
   console.log(`Acción ${accion} no implementada`)
 }
@@ -88,4 +99,4 @@ else {
   // actualizar
 // node comandos.js editar 'Brian May' '12.345.678-9' guitarra 10
 // node comandos.js rut '12.345.678-9'
-
+// node comandos.js eliminar '12.345.678-9'
