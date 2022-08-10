@@ -12,7 +12,7 @@ const client = new Client(config)
 
 client.connect(err => {
   if (err) {
-    console.log(err);
+    console.log(err)
   }
 })
 
@@ -22,22 +22,23 @@ async function nuevoEstudiante(nombre, rut, curso, nivel) {
 
   const resp = await client.query(`insert into estudiantes(nombre, rut, curso, nivel) values ('${nombre}', '${rut}', '${curso}', ${nivel}) returning *`)
 
-  console.log(resp.rows);
+  // console.log(resp.rows)
+  console.log(`El estudiante ${nombre} se ha agregado con éxito`)
 
   client.end()
 }
 
 async function mostrarEstudiantes() {
-  const resp = await client.query(`select * from estudiantes order by nombre`);
-  console.log(resp.rows);
-  client.end();
+  const resp = await client.query(`select * from estudiantes order by nombre`)
+  console.log(resp.rows)
+  client.end()
 }
 
 // Acciones 
 //mostrarEstudiantes()
 const accion = process.argv[2]
 
-if (accion == 'mostrar') {
+if (accion == 'consulta') {
   mostrarEstudiantes()
 }
 else if (accion == 'crear') {
@@ -49,7 +50,7 @@ else if (accion == 'crear') {
   nuevoEstudiante(nombre, rut, curso, nivel)
 }
 else {
-  console.log(`Acción ${accion} no implementada`);
+  console.log(`Acción ${accion} no implementada`)
 }
 
 // node comandos.js
@@ -57,6 +58,6 @@ else {
 // \d estudiantes
 // select * from estudiantes
 
-// node comandos.js mostrar
+// node comandos.js consulta
 // node comandos.js crear 'Brian May', '12.345.678-9', guitarra, 7
 
