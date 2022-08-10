@@ -20,7 +20,7 @@ client.connect(err => {
 async function nuevoEstudiante(nombre, rut, curso, nivel) {
 
 
-  const resp = await client.query(`insert into estudiantes(nombre, rut, curso, nivel) values ('${nombre}', '${rut}', '${curso}', ${nivel}) returning *`)
+  await client.query(`insert into estudiantes(nombre, rut, curso, nivel) values ('${nombre}', '${rut}', '${curso}', ${nivel}) returning *`)
 
   // console.log(resp.rows)
   console.log(`El estudiante ${nombre} se ha agregado con éxito`)
@@ -48,9 +48,9 @@ async function rutEstudiante(rut) {
 }
 
 async function eliminarEstudiante(rut) {
-  const resp = await client.query(`delete from estudiantes where rut='${rut}' returning *`)
+  await client.query(`delete from estudiantes where rut='${rut}' returning *`)
   console.log(`Registro de estudiante  con rut ${rut} eliminado`)
-  console.log(resp.rows)
+  // console.log(resp.rows)
   client.end()
 }
 
@@ -89,14 +89,14 @@ else {
   console.log(`Acción ${accion} no implementada`)
 }
 
-// node comandos.js
+// node index.js
 
 // \d estudiantes
 // select * from estudiantes
 
-// node comandos.js crear 'Brian May' '12.345.678-9' guitarra 7
-// node comandos.js consulta
+// node index.js crear 'Brian May' '12.345.678-9' guitarra 7
+// node index.js consulta
   // actualizar
-// node comandos.js editar 'Brian May' '12.345.678-9' guitarra 10
-// node comandos.js rut '12.345.678-9'
-// node comandos.js eliminar '12.345.678-9'
+// node index.js editar 'Brian May' '12.345.678-9' guitarra 10
+// node index.js rut '12.345.678-9'
+// node index.js eliminar '12.345.678-9'
