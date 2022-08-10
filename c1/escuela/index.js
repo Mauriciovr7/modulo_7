@@ -1,13 +1,13 @@
 const { Client } = require('pg')
-const {clave} = require('./clave.js')
+const {config} = require('./config.js')
 
-const config = {
+/* const config = {
   user: 'postgres',
   host: 'localhost',
   database: 'escuela',
-  password: clave,
+  password: 'clave_basedato',
   port: 5432
-}
+} */
 const client = new Client(config)
 
 client.connect(err => {
