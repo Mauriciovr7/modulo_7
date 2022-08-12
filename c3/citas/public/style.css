@@ -1,0 +1,11 @@
+.btn-add {
+  background: rgb(37, 97, 97);
+  background: linear-gradient(0deg, rgba(37, 97, 97, 1) 0%, rgba(15, 236, 22, 1) 100%);
+  color: white;
+}
+
+.btn-skip {
+  background: rgb(37, 97, 97);
+  background: linear-gradient(0deg, rgba(37, 97, 97, 1) 0%, rgba(4, 243, 240, 1) 100%);
+  color: white;
+}

@@ -1,0 +1,6 @@
+*.pdf
+/vsc
+**/node_modules
+**/eje
+clave.js
+config.js
