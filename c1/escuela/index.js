@@ -1,6 +1,8 @@
 const { Client } = require('pg')
 const {config} = require('./config.js')
 
+// pool ********************************
+
 /* const config = {
   user: 'postgres',
   host: 'localhost',
@@ -12,7 +14,7 @@ const client = new Client(config)
 
 client.connect(err => {
   if (err) {
-    console.log(err)
+    console.log(err, 'error de conexion con basedato')
   }
 })
 
@@ -20,43 +22,56 @@ client.connect(err => {
 async function nuevoEstudiante(nombre, rut, curso, nivel) {
 
 
-  await client.query(`insert into estudiantes(nombre, rut, curso, nivel) values ('${nombre}', '${rut}', '${curso}', ${nivel}) returning *`)
+  await client.query(`insert into estudiantes(nombre, rut, curso, nivel) values ('${nombre}', '${rut}', '${curso}', ${nivel}) returning *`) // returning * = retorna lo q acaba de crear
 
-  // console.log(resp.rows)
+  // console.log(resp.rows) // rows contenido
   console.log(`El estudiante ${nombre} se ha agregado con éxito`)
 
   client.end()
 }
 
 async function mostrarEstudiantes() {
-  const resp = await client.query(`select * from estudiantes order by nombre`)
-  console.log('Registro actual', resp.rows)
-  client.end()
+  const resp = await client.query(`select * from estudiantes order by nombre`) // consultar a basedato
+  
+  if (resp.rows == '') {
+    console.log('nada en basedato')
+  } else console.log('Registro actual', resp.rows) // rows[0]) // solo el primero
+  client.end() // cerrar conexion
 }
 
 async function editarEstudiante(nombre, rut, curso, nivel) {
   const resp = await client.query(`update estudiantes set nombre='${nombre}', rut='${rut}', curso='${curso}', nivel=${nivel} where rut='${rut}' returning *`)
-  console.log(resp.rows)
-  console.log(`Estudiante ${nombre} editado con éxito`)
+  // console.log(resp.rows)
+  if (resp.rows == '') {
+    console.log(`Estudiante ${nombre} no existe en basedato`)
+  } else console.log(`Estudiante ${nombre} editado con éxito`)
+  
   client.end()
 }
 
 async function rutEstudiante(rut) {
   const resp = await client.query(`select * from estudiantes where rut='${rut}'`)
-  console.log(resp.rows)
+  
+  if (resp.rows == '') {
+    console.log(`Rut ${rut} no existe en basedato`)
+  } else console.log(resp.rows)
+
   client.end()
 }
 
 async function eliminarEstudiante(rut) {
-  await client.query(`delete from estudiantes where rut='${rut}' returning *`)
-  console.log(`Registro de estudiante  con rut ${rut} eliminado`)
-  // console.log(resp.rows)
+  const resp = await client.query(`delete from estudiantes where rut='${rut}' returning *`)
+
+  if (resp.rows == '') {
+    console.log(`Rut ${rut} no existe en basedato`)
+  } else console.log(`Registro de estudiante  con rut ${rut} eliminado`)
+  
   client.end()
 }
 
 // Acciones 
 //mostrarEstudiantes()
-const accion = process.argv[2]
+const accion = process.argv[2] // argv = array q contiene todas las posiciones q se pasan en terminal
 
 if (accion == 'consulta') {
   mostrarEstudiantes()
@@ -79,6 +94,10 @@ else if (accion == 'editar') {
 }
 else if (accion == 'rut') {
   const rut = process.argv[3]
+  if(rut == undefined || rut == '') {
+    console.log('Rut no ingresado')
+    return
+  }
   rutEstudiante(rut)
 }
 else if (accion == 'eliminar') {
