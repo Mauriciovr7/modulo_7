@@ -4,7 +4,10 @@ function dibujarCitas(citas) {
   // 1. Vamos armando el HTML interno de la lista, de a poco
   let html = ''
   for (let cita of citas) {
-    html += `<li class="list-group-item">"${cita.cita}"<br> -${cita.nombre} at ${cita.hora} ${cita.fecha}</li>`
+    html += `
+    <li class="list-group-item">"${cita.cita}"<br> </li>
+    <li class="texto-azul">-${cita.nombre} at ${cita.hora} ${cita.fecha}</li>
+    `
   }
   // 2. Fijar el HTML interno de la lista
   lista_citas.innerHTML = html;

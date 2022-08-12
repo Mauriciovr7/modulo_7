@@ -39,7 +39,7 @@ async function nuevaCita(nombre, cita) {
 async function mostrarCitas() {
   // 1. Solicito un 'cliente' al pool de conexiones
   const client = await pool.connect()
-  const resp = await client.query('select * from citas')
+  const resp = await client.query('select * from citas order by fecha')
   client.release()
   return resp.rows
 }

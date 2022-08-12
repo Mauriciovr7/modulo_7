@@ -1,3 +1,8 @@
+body {
+  display: flex;
+  justify-content: space-around;
+}
+
 .btn-add {
   background: rgb(37, 97, 97);
   background: linear-gradient(0deg, rgba(37, 97, 97, 1) 0%, rgba(15, 236, 22, 1) 100%);
@@ -12,14 +17,29 @@
 
 .container {
   position: relative;
-  left: 160px;
 }
 
-.lateral {
+.lateral, .container {
   position: relative;
-  left: 600px;
-  top: -300px;
   border: 3px solid #1821cc;
-  border-radius: 0.9rem;
-  width: 400px;
+  border-radius: 1.9rem;
+  width: 500px;
+}
+
+ul {
+  list-style: none;
+}
+
+.texto-azul {
+  color: blue;
+  font-weight: bold;
+  margin-left: 69px;
+}
+
+h2 {
+  text-align: center;
+}
+
+form {
+  margin-left: 8rem;
 }
