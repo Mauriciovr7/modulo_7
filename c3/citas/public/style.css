@@ -9,3 +9,17 @@
   background: linear-gradient(0deg, rgba(37, 97, 97, 1) 0%, rgba(4, 243, 240, 1) 100%);
   color: white;
 }
+
+.container {
+  position: relative;
+  left: 160px;
+}
+
+.lateral {
+  position: relative;
+  left: 600px;
+  top: -300px;
+  border: 3px solid #1821cc;
+  border-radius: 0.9rem;
+  width: 400px;
+}

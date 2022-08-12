@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,21 +9,31 @@
   <link rel="stylesheet" href="style.css">
   <title>Citas</title>
 </head>
+
 <body>
   <div class="container">
     <h3>Welcome to Quoting</h3>
-    <form action="/" method="post">
+    <form action="/citas" method="post">
       <label for="">Your name:</label>
       <input type="text" name="nombre" id="" placeholder="Trey" required>
       <h6></h6>
-      
+
       <p><label for="texto">Your quote:</label></p>
-      <textarea name="quote" id="texto" cols="30" rows="10">I make lame jokes.</textarea>
+      <textarea name="quote" id="texto" cols="30" rows="10" required>I make lame jokes.</textarea>
       <br>
       <button class="btn-add" type="submit">Add my quote!</button>
       <button class="btn-skip">Skip to quotes!</button>
     </form>
   </div>
-  
+
+  <div class="lateral">
+    <h3>Here are the awesome quotes!</h3>
+    <ul class="list-group" id="lista-citas">
+      <li class="list-group-item">cita 1 (nombre,cita)</li>
+    </ul>
+  </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
