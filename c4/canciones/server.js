@@ -58,13 +58,9 @@ app.delete('/:cancionId', async (req, res) => {
   }
 })
 
-/* app.put('/cancion', async (req, res) => {
-  console.log('put')
+app.put('/cancion', async (req, res) => {
   const form = await f.getForm(req)
-  console.log('put form ', form)
   const id = req.query.id
-  
-  console.log('put id ', id) // ok
   
   if (id) {
     try {
@@ -82,7 +78,7 @@ app.delete('/:cancionId', async (req, res) => {
       return res.redirect('/') // 400 error
     }
   }
-}) */
+})
 
 app.use((req, res) => {
   // res.statusCode = 404
