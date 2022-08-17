@@ -1,29 +1,42 @@
 const express = require('express')
-const { nuevaCita, mostrarCitas } = require('./db.js')
-
+const { nuevaCita, mostrarCitas, deleteCita, editarCita } = require('./db.js')
 const port = 3000
 const app = express()
-
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
-
-app.post('/citas', async (req, res) => {
-  await nuevaCita(req.body.nombre, req.body.quote)
-  res.redirect('/')
-
+app.post('/quotes', async (req, res) => {
+  try {    
+    await nuevaCita(req.body.nombre, req.body.quote)
+    res.redirect('/')
+  } catch (error) {
+    console.log(error)
+  }
 })
-
-app.get('/citas', async (req, res) => {
-
+app.get('/quotes', async (req, res) => {
   try {
     const citas = await mostrarCitas()
-    // res.status(200).json({ citas })
-    // res.status(200).json( citas )
     res.json(citas)
   } catch (error) {
     console.log(error)
-    //return res.status(400).redirect('/')
   }
+})
+app.delete('/quotes', async (req, res) => {
+  console.log('delete /quotes')
+  const id = req.query.id
+  if (id) {
+    try {
+      const citas = await deleteCita(id)
+      res.json(citas)
+    } catch (error) {
+      console.log(error)
+    }
+  }  
+})
+
+app.post('/quotes/edit', async (req, res) => {
+  console.log(req.body);
+  await editarCita(req.body.id, req.body.nombre, req.body.cita)
+  res.redirect('/')
 })
 
 app.use((req, res) => {

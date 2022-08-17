@@ -1,25 +1,33 @@
 body {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+button {
+  margin: 1rem 0rem;
+  height: 3rem;
+  font-weight: bold;
+  color: white;
 }
 
 .btn-add {
   background: rgb(37, 97, 97);
   background: linear-gradient(0deg, rgba(37, 97, 97, 1) 0%, rgba(15, 236, 22, 1) 100%);
-  color: white;
 }
 
 .btn-skip {
   background: rgb(37, 97, 97);
   background: linear-gradient(0deg, rgba(37, 97, 97, 1) 0%, rgba(4, 243, 240, 1) 100%);
-  color: white;
+  margin-left: 1rem;
 }
 
-.container {
+/* .container {
   position: relative;
-}
+} */
 
 .lateral, .container {
+  margin: 2rem;
   position: relative;
   border: 3px solid #1821cc;
   border-radius: 1.9rem;
@@ -43,3 +51,13 @@ h2 {
 form {
   margin-left: 8rem;
 }
+
+.del {
+  color: red;
+}
+
+i {
+  float: right;
+  margin-right: 2rem;
+}
+
