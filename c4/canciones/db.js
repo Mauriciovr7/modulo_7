@@ -54,6 +54,22 @@ async function eliminarCancion(id) {
   // return resp.rows
 }
 
+const actualizarCancion = async ( id, cancion, artista, tono ) => {// , form) => {
+  const client = await pool.connect()
+  console.log('editar cancion')
+  
+  try {
+    await client.query({
+      text: `update canciones set cancion=$2, artista=$3, tono=$4 where id=$1`,
+      values: [id, cancion, artista, tono],
+      name: 'editar-cancion'
+    })
+    client.release()
+  } catch (error) {
+      console.log("Surgió un error al actualizar_cancion: " + error)
+  }
+}
+
 module.exports = {
-  nuevaCancion, mostrarCanciones, eliminarCancion
+  nuevaCancion, mostrarCanciones, eliminarCancion, actualizarCancion
 }

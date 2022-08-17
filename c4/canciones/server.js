@@ -1,5 +1,5 @@
 const express = require('express')
-const { nuevaCancion, mostrarCanciones, eliminarCancion } = require('./db.js')
+const { nuevaCancion, mostrarCanciones, eliminarCancion, actualizarCancion } = require('./db.js')
 const f = require('./functionsUtils')
 
 const app = express()
@@ -20,9 +20,9 @@ app.post('/cancion', async (req, res) => { // ok
 
 app.get('/canciones', async (req, res) => {
   // res.json([]) // array vacio por mientras
-  
+
   console.log('app.get /canciones') // ok
-  
+
   try {
     const canciones = await mostrarCanciones()
     // res.status(200).json({ canciones })
@@ -38,13 +38,11 @@ app.get('/canciones', async (req, res) => {
 app.delete('/:cancionId', async (req, res) => {
   console.log('delete')
   const id = req.query.id
-  
+
   console.log('delete ', id) // ok
-  
+
   if (id) {
     try {
-      //const canciones = await mostrarCanciones()
-    //res.json(canciones)
 
       await eliminarCancion(id);
       // res.status(200).redirect('/') // eliminado
@@ -60,23 +58,18 @@ app.delete('/:cancionId', async (req, res) => {
 
 app.put('/cancion', async (req, res) => {
   const form = await f.getForm(req)
-  const id = req.query.id
-  
-  if (id) {
-    try {
-      //const canciones = await mostrarCanciones()
+
+  try {
+    await actualizarCancion(form.id, form.cancion, form.artista, form.tono)
     //res.json(canciones)
 
-      //await eliminarCancion(id);
-
-      // res.status(200).redirect('/') // eliminado
-      res.redirect('/') // eliminado
+    // res.status(200).redirect('/') // eliminado
+    res.redirect('/') // eliminado
 
 
-    } catch (error) {
-      console.log(error);
-      return res.redirect('/') // 400 error
-    }
+  } catch (error) {
+    console.log(error);
+    return res.redirect('/') // 400 error
   }
 })
 
@@ -91,7 +84,7 @@ app.use((req, res) => {
   </html>`)
 })
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`http://localhost:${port}`)
 })
 
