@@ -9,49 +9,37 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
 
-app.post('/cancion', async (req, res) => { // ok
-  console.log('app.post /cancion')
+app.post('/cancion', async (req, res) => {
   const form = await f.getForm(req)
 
   await nuevaCancion(form.cancion, form.artista, form.tono)
-  console.log(form.cancion, form.artista, form.tono)
   res.redirect('/')
 })
 
 app.get('/canciones', async (req, res) => {
-  // res.json([]) // array vacio por mientras
-
-  console.log('app.get /canciones') // ok
 
   try {
     const canciones = await mostrarCanciones()
-    // res.status(200).json({ canciones })
-    // res.status(200).json( canciones )
     res.json(canciones)
 
   } catch (error) {
     console.log(error)
-    //return res.status(400).redirect('/')
   }
 })
 
 app.delete('/:cancionId', async (req, res) => {
-  console.log('delete')
   const id = req.query.id
-
-  console.log('delete ', id) // ok
 
   if (id) {
     try {
 
-      await eliminarCancion(id);
-      // res.status(200).redirect('/') // eliminado
-      res.redirect('/') // eliminado
+      await eliminarCancion(id)
+      res.end()
 
 
     } catch (error) {
-      console.log(error);
-      return res.redirect('/') // 400 error
+      console.log(error)
+      return res.redirect('/')
     }
   }
 })
@@ -61,20 +49,16 @@ app.put('/cancion', async (req, res) => {
 
   try {
     await actualizarCancion(form.id, form.cancion, form.artista, form.tono)
-    //res.json(canciones)
-
-    // res.status(200).redirect('/') // eliminado
-    res.redirect('/') // eliminado
+    res.end()
 
 
   } catch (error) {
-    console.log(error);
-    return res.redirect('/') // 400 error
+    console.log(error)
+    return res.redirect('/')
   }
 })
 
 app.use((req, res) => {
-  // res.statusCode = 404
   res.status(404).send(`
   <html>
     <h2>...ruta no existe</h2>

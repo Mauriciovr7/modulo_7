@@ -1,4 +1,5 @@
 *.pdf
+*.rar
 /vsc
 **/node_modules
 **/eje

@@ -73,7 +73,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 <script>
-  let url = "http://localhost:3000/cancion"; // diferente forma al name de form get
+  let url = "http://localhost:3000/cancion";
   let tbody = document.getElementById("cuerpo");
   let cancion = document.getElementById("cancion");
   let artista = document.getElementById("artista");
@@ -83,11 +83,9 @@
   window.onload = getData();
 
   async function getData() {
-    console.log('getData cancion+es') // ok
-    await axios.get(url + "es").then((data) => { // /canciones
+    await axios.get(url + "es").then((data) => {
       canciones = data.data;
       tbody.innerHTML = "";
-      console.log(canciones)
       canciones.forEach((c, i) => {
         tbody.innerHTML += `
         <tr>
@@ -119,15 +117,11 @@
       artista: artista.value,
       tono: tono.value,
     };
-    console.log(data); // ok
-    axios.post(url, data).then(() => getData()); // /cancion
+    axios.post(url, data).then(() => getData());
   }
 
   function eliminarCancion(i, id) {
-    console.log('i,id ', i,id)
-    axios.delete(url + "?id=" + id).then(() => { // err  /cancion
-      // alert("Canción " + canciones[i].cancion + " eliminada");
-      console.log('eliminada')
+    axios.delete(url + "?id=" + id).then(() => {
       getData();
     });
   }
@@ -143,9 +137,11 @@
     document.getElementById("editar").style.display = "block";
   }
 
+  // se interfiere frontend, agregando id en put
   function editarCancion(id) {
     axios
       .put(url, {
+        id,
         cancion: cancion.value,
         artista: artista.value,
         tono: tono.value,

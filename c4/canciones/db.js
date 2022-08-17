@@ -27,36 +27,30 @@ async function nuevaCancion(cancion, artista, tono) {
   } catch (error) {
 
     console.log(error)
-    // console.log('tabla no existe')
   }
 
   client.release()
-  //pool.end()
 }
 
 async function mostrarCanciones() {
   const client = await pool.connect()
-  const resp = await client.query('select * from canciones') // order by id')
+  const resp = await client.query('select * from canciones')
   client.release()
   return resp.rows
 }
 
 async function eliminarCancion(id) {
   const client = await pool.connect()
-
-  console.log('eliminar cancion')
   await client.query({
     text: `delete from canciones where id=$1`,
     values: [id],
     name: 'eliminar-cancion'
   })
   client.release()
-  // return resp.rows
 }
 
-const actualizarCancion = async ( id, cancion, artista, tono ) => {// , form) => {
+const actualizarCancion = async ( id, cancion, artista, tono ) => {
   const client = await pool.connect()
-  console.log('editar cancion')
   
   try {
     await client.query({
